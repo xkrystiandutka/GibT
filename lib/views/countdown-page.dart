@@ -16,6 +16,8 @@ class _CountdownPageState extends State<CountdownPage>
 
   bool isPlaying = false;
 
+  bool isBreakmode = false;
+
   String get countText {
     Duration count = controller.duration! * controller.value;
     return controller.isDismissed
@@ -114,41 +116,65 @@ class _CountdownPageState extends State<CountdownPage>
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Column(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    if (controller.isAnimating) {
-                      controller.stop();
-                      setState(() {
-                        isPlaying = false;
-                      });
-                    } else {
-                      controller.reverse(
-                          from: controller.value == 0 ? 1.0 : controller.value);
-                      setState(() {
-                        isPlaying = true;
-                      });
-                    }
-                  },
-                  child: RoundButton(
-                    icon: isPlaying == true ? Icons.pause : Icons.play_arrow,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+
+                      },
+                      child: RoundButton(
+                        icon: Icons.exposure_minus_1,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                      },
+                      child: RoundButton(
+                        icon: Icons.plus_one,
+                      ),
+                    ),
+                  ],
                 ),
-                GestureDetector(
-                  onTap: () {
-                    controller.reset();
-                    setState(() {
-                      isPlaying = false;
-                    });
-                  },
-                  child: RoundButton(
-                    icon: Icons.stop,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        if (controller.isAnimating) {
+                          controller.stop();
+                          setState(() {
+                            isPlaying = false;
+                          });
+                        } else {
+                          controller.reverse(
+                              from: controller.value == 0 ? 1.0 : controller.value);
+                          setState(() {
+                            isPlaying = true;
+                          });
+                        }
+                      },
+                      child: RoundButton(
+                        icon: isPlaying == true ? Icons.pause : Icons.play_arrow,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        controller.reset();
+                        setState(() {
+                          isPlaying = false;
+                        });
+                      },
+                      child: RoundButton(
+                        icon: Icons.stop,
+                      ),
+                    ),
+                  ],
                 ),
               ],
-            ),
+            )
           )
         ],
       ),
