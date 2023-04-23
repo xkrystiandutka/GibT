@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../widgets/round-button.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
+import 'dart:developer';
 
 class CountdownPage extends StatefulWidget {
   const CountdownPage({Key? key}) : super(key: key);
@@ -15,17 +16,39 @@ class _CountdownPageState extends State<CountdownPage>
   late AnimationController controller;
 
   bool isPlaying = false;
-
   bool isBreakmode = false;
 
   String get countText {
-    Duration count = controller.duration! * controller.value;
+    late Duration count = controller.duration! * controller.value;
     return controller.isDismissed
         ? '${controller.duration!.inHours}:${(controller.duration!.inMinutes % 60).toString().padLeft(2, '0')}:${(controller.duration!.inSeconds % 60).toString().padLeft(2, '0')}'
         : '${count.inHours}:${(count.inMinutes % 60).toString().padLeft(2, '0')}:${(count.inSeconds % 60).toString().padLeft(2, '0')}';
   }
 
   double progress = 1.0;
+
+  void _minusOne() {
+    Duration remainingTime = controller.duration! * controller.value;
+    Duration minute = const Duration(minutes: 1);
+    if (remainingTime >= minute) {
+      remainingTime -= minute;
+    }
+    log('minus remainingTime: $remainingTime');
+    setState(() {
+      controller.duration = remainingTime;
+    });
+  }
+
+  void _addOne() {
+    Duration remainingTime = controller.duration! * controller.value;
+    Duration minute = const Duration(minutes: 1);
+    remainingTime += minute;
+
+    log('add remainingTime: $remainingTime');
+    setState(() {
+      controller.duration = remainingTime;
+    });
+  }
 
   void notify() {
     if (countText == '0:00:00') {
@@ -38,7 +61,7 @@ class _CountdownPageState extends State<CountdownPage>
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 60),
+      duration: const Duration(minutes: 1),
     );
 
     controller.addListener(() {
@@ -65,7 +88,7 @@ class _CountdownPageState extends State<CountdownPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfff5fbff),
+      backgroundColor: const Color(0xfff5fbff),
       body: Column(
         children: [
           Expanded(
@@ -104,7 +127,7 @@ class _CountdownPageState extends State<CountdownPage>
                     animation: controller,
                     builder: (context, child) => Text(
                       countText,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 60,
                         fontWeight: FontWeight.bold,
                       ),
@@ -115,67 +138,67 @@ class _CountdownPageState extends State<CountdownPage>
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-
-                      },
-                      child: RoundButton(
-                        icon: Icons.exposure_minus_1,
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () => _minusOne(),
+                        child: const RoundButton(
+                          icon: Icons.exposure_minus_1,
+                        ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                      },
-                      child: RoundButton(
-                        icon: Icons.plus_one,
+                      GestureDetector(
+                        onTap: () => _addOne(),
+                        child: const RoundButton(
+                          icon: Icons.plus_one,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        if (controller.isAnimating) {
-                          controller.stop();
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          if (controller.isAnimating) {
+                            controller.stop();
+                            setState(() {
+                              isPlaying = false;
+                            });
+                          } else {
+                            controller.reverse(
+                                from: controller.value == 0
+                                    ? 1.0
+                                    : controller.value);
+                            setState(() {
+                              isPlaying = true;
+                            });
+                          }
+                        },
+                        child: RoundButton(
+                          icon: isPlaying == true
+                              ? Icons.pause
+                              : Icons.play_arrow,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          controller.reset();
                           setState(() {
                             isPlaying = false;
                           });
-                        } else {
-                          controller.reverse(
-                              from: controller.value == 0 ? 1.0 : controller.value);
-                          setState(() {
-                            isPlaying = true;
-                          });
-                        }
-                      },
-                      child: RoundButton(
-                        icon: isPlaying == true ? Icons.pause : Icons.play_arrow,
+                        },
+                        child: const RoundButton(
+                          icon: Icons.stop,
+                        ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        controller.reset();
-                        setState(() {
-                          isPlaying = false;
-                        });
-                      },
-                      child: RoundButton(
-                        icon: Icons.stop,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            )
-          )
+                    ],
+                  ),
+                ],
+              ))
         ],
       ),
     );
