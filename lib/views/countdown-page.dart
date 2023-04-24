@@ -123,7 +123,12 @@ class _CountdownPageState extends State<CountdownPage>
                   children: [
                     GestureDetector(
                       onTap: () {
-
+                        setState(() {
+                          controller.duration = (controller.duration! - const Duration(minutes: 1))!;
+                          isPlaying = true;
+                          controller.reverse(
+                              from: controller.value == 0 ? 1.0 : controller.value);
+                        });
                       },
                       child: RoundButton(
                         icon: Icons.exposure_minus_1,
@@ -131,6 +136,12 @@ class _CountdownPageState extends State<CountdownPage>
                     ),
                     GestureDetector(
                       onTap: () {
+                        setState(() {
+                          controller.duration = (controller.duration! + const Duration(minutes: 1))!;
+                          isPlaying = true;
+                          controller.reverse(
+                              from: controller.value == 0 ? 1.0 : controller.value);
+                        });
                       },
                       child: RoundButton(
                         icon: Icons.plus_one,
