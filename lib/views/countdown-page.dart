@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../widgets/round-button.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
+
+//TODO: pass variables which defines break and work time
 class CountdownPage extends StatefulWidget {
   const CountdownPage({Key? key}) : super(key: key);
 
@@ -18,6 +20,10 @@ class _CountdownPageState extends State<CountdownPage>
 
   bool isBreakmode = false;
 
+  int currentSet = 0;
+
+  String title = "Do the laundry";
+
   String get countText {
     Duration count = controller.duration! * controller.value;
     return controller.isDismissed
@@ -31,6 +37,9 @@ class _CountdownPageState extends State<CountdownPage>
     if (countText == '0:00:00') {
       FlutterRingtonePlayer.playNotification();
     }
+    if (controller.isCompleted) {
+      currentSet+=1;
+    }
   }
 
   @override
@@ -38,6 +47,7 @@ class _CountdownPageState extends State<CountdownPage>
     super.initState();
     controller = AnimationController(
       vsync: this,
+      // TODO: make a variable so user can set default time
       duration: Duration(seconds: 360),
     );
 
@@ -81,6 +91,40 @@ class _CountdownPageState extends State<CountdownPage>
                     strokeWidth: 6,
                   ),
                 ),
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        Padding(padding: EdgeInsets.all(36.0)),
+                        Row(
+                          children: [
+                            Text("$currentSet/4",
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            Text("Task: $title",
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                              ),)
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text((currentSet>=4)?"Completed!":"",
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                              ),)
+                          ],
+                        )
+
+                      ],
+                    )
+                  ],
+                ),
+
                 GestureDetector(
                   onTap: () {
                     if (controller.isDismissed) {
