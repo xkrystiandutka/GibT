@@ -18,26 +18,26 @@ class RiveAsset {
 List<RiveAsset> sideMenus = [
   RiveAsset(
       "assets/icons.riv",
-      artboard: "HOME",
-      stateMachineName: "HOME_interactivity",
-      title: "Home"
+      artboard: "USER",
+      stateMachineName: "USER_Interactivity",
+      title: "Profile"
   ),
   RiveAsset(
       "assets/icons.riv",
-      artboard: "SEARCH",
-      stateMachineName: "SEARCH_Interactivity",
-      title: "Search"
+      artboard: "HOME",
+      stateMachineName: "HOME_interactivity",
+      title: "Store"
   ),
   RiveAsset(
       "assets/icons.riv",
       artboard: "LIKE/STAR",
       stateMachineName: "STAR_Interactivity",
-      title: "Favorites"
+      title: "Achievements"
   ),
   RiveAsset(
       "assets/icons.riv",
-      artboard: "CHAT",
-      stateMachineName: "CHAT_Interactivity",
-      title: "Help"
+      artboard: "SETTINGS",
+      stateMachineName: "SETTINGS_Interactivity",
+      title: "Settings"
   ),
 ];

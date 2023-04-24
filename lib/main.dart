@@ -1,15 +1,18 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:gibt_app/utils/rive-utils.dart';
+import 'package:gibt_app/widgets/entry-point.dart';
 import 'package:rive/rive.dart';
 import 'models/menu-button.dart';
 import 'views/countdown-page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  late SMIBool isMenuOpen;
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,21 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Stack(children: [
-        const CountdownPage(),
-        MenuButton(
-          riveOnInit: (artboard) {
-            StateMachineController controller = RiveUtils.getRiveController(
-                    artboard,
-                    stateMachineName: "State Machine");
-            isMenuOpen = controller.findSMI("Hover") as SMIBool;
-            //isMenuOpen.value = !isMenuOpen.value;
-          },
-          press: () {
-            isMenuOpen.value = !isMenuOpen.value;
-          },
-        )
-      ]),
+      home: const EntryPoint(),
     );
   }
 }

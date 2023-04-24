@@ -27,8 +27,8 @@ class _SideMenuState extends State<SideMenu> {
           child: Column(
             children: [
               InfoCard(
-                name: "Allahu",
-                proffesion: "sandman",
+                name: "Grzegorz",
+                proffesion: "beginner",
               ),
               Padding(
                   padding:

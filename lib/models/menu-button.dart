@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
@@ -17,7 +15,7 @@ class MenuButton extends StatelessWidget {
         child: GestureDetector(
           onTap: press,
           child: Container(
-            margin: const EdgeInsets.only(left: 16),
+            margin: const EdgeInsets.only(left: 16, top: 16),
             height: 40,
             width: 40,
             decoration: const BoxDecoration(
@@ -28,7 +26,7 @@ class MenuButton extends StatelessWidget {
                       color: Colors.black12, offset: Offset(0, 3), blurRadius: 8)
                 ]),
             child: RiveAnimation.asset(
-              "assets/menu-button4.riv",
+              "assets/menu-button.riv",
               onInit: riveOnInit,
             ),
           ),
