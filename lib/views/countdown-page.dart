@@ -20,9 +20,12 @@ class _CountdownPageState extends State<CountdownPage>
 
   bool isBreakmode = false;
 
-  int currentSet = 0;
+  int currentSet = 1;
+
+  bool isCompleted = false;
 
   String title = "Do the laundry";
+  String completeText = "";
 
   String get countText {
     Duration count = controller.duration! * controller.value;
@@ -37,10 +40,21 @@ class _CountdownPageState extends State<CountdownPage>
     if (countText == '0:00:00') {
       FlutterRingtonePlayer.playNotification();
     }
-    if (controller.isCompleted) {
-      currentSet+=1;
+    if (controller.isDismissed){
+      if (currentSet>=4)
+      {
+        setState(() {
+        isCompleted= true;
+        completeText = "Complete!";
+        });
+      } else {
+        setState(() {
+          currentSet += 1;
+        });
+      }
     }
   }
+
 
   @override
   void initState() {
@@ -48,7 +62,7 @@ class _CountdownPageState extends State<CountdownPage>
     controller = AnimationController(
       vsync: this,
       // TODO: make a variable so user can set default time
-      duration: Duration(seconds: 360),
+      duration: Duration(seconds: 3),
     );
 
     controller.addListener(() {
@@ -112,7 +126,7 @@ class _CountdownPageState extends State<CountdownPage>
                         ),
                         Row(
                           children: [
-                            Text((currentSet>=4)?"Completed!":"",
+                            Text(completeText,
                               style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
