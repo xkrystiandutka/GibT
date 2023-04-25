@@ -17,15 +17,14 @@ class _CountdownPageState extends State<CountdownPage>
   late AnimationController controller;
 
   bool isPlaying = false;
-
   bool isBreakmode = false;
-
   int currentSet = 1;
-
   bool isCompleted = false;
-
   String title = "Do the laundry";
   String completeText = "";
+
+  Duration setDuration = Duration(seconds: 2);
+  Duration breakDuration = Duration(seconds: 1);
 
   String get countText {
     Duration count = controller.duration! * controller.value;
@@ -37,20 +36,28 @@ class _CountdownPageState extends State<CountdownPage>
   double progress = 1.0;
 
   void notify() {
-    if (countText == '0:00:00') {
-      FlutterRingtonePlayer.playNotification();
-    }
+
     if (controller.isDismissed){
-      if (currentSet>=4)
-      {
-        setState(() {
-        isCompleted= true;
-        completeText = "Complete!";
-        });
+      FlutterRingtonePlayer.playNotification();
+      if (isBreakmode){
+        controller.duration = setDuration;
+        isBreakmode=false;
       } else {
-        setState(() {
-          currentSet += 1;
-        });
+        controller.duration = breakDuration;
+        isBreakmode=true;
+      }
+
+      if (!isBreakmode) {
+        if (currentSet >= 4) {
+          setState(() {
+            isCompleted = true;
+            completeText = "Completed!";
+          });
+        } else {
+          setState(() {
+            currentSet += 1;
+          });
+        }
       }
     }
   }
@@ -62,7 +69,7 @@ class _CountdownPageState extends State<CountdownPage>
     controller = AnimationController(
       vsync: this,
       // TODO: make a variable so user can set default time
-      duration: Duration(seconds: 3),
+      duration: setDuration,
     );
 
     controller.addListener(() {
@@ -121,7 +128,7 @@ class _CountdownPageState extends State<CountdownPage>
                               style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
-                              ),)
+                              ),),
                           ],
                         ),
                         Row(
@@ -129,6 +136,11 @@ class _CountdownPageState extends State<CountdownPage>
                             Text(completeText,
                               style: TextStyle(
                                 fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            Text(isBreakmode?"BREAK!":"",
+                              style: TextStyle(
+                                fontSize: 15,
                                 fontWeight: FontWeight.bold,
                               ),)
                           ],
