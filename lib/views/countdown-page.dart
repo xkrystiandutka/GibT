@@ -262,7 +262,7 @@ class _CountdownPageState extends State<CountdownPage>
                           });
                         },
                         child: RoundButton(
-                          icon: Icons.stop,
+                          icon: Icons.skip_next,
                         ),
                       ),
                     ],
