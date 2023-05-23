@@ -37,7 +37,7 @@ class SideMenuTitle extends StatelessWidget {
               left: 0,
               child: Container(
                 decoration: const BoxDecoration(
-                    color: Color(0xFF6792FF),
+                    color: Color(0xFF4E23F3),
                     borderRadius: BorderRadius.all(Radius.circular(10))),
               ),
             ),

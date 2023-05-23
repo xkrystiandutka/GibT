@@ -22,7 +22,7 @@ class _SideMenuState extends State<SideMenu> {
       body: Container(
         width: 300,
         height: double.infinity,
-        color: Colors.black38,
+        color: const Color(0xFF7553F6),
         child: SafeArea(
           child: Column(
             children: [
