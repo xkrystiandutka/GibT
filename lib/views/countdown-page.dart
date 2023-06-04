@@ -22,6 +22,7 @@ class _CountdownPageState extends State<CountdownPage>
   bool isCompleted = false;
   String title = "Do the laundry";
   String completeText = "";
+  int allSets = 4;
 
   Duration setDuration = Duration(minutes: 2);
   Duration breakDuration = Duration(seconds: 30);
@@ -48,12 +49,17 @@ class _CountdownPageState extends State<CountdownPage>
       }
 
       if (!isBreakmode) {
-        if (currentSet >= 4) {
+        if (currentSet == allSets) {
           setState(() {
             isCompleted = true;
             completeText = "Completed!";
+
           });
-        } else {
+        } else if (currentSet>allSets){
+          setState(() {
+          currentSet=1;
+          });
+        }else {
           setState(() {
             currentSet += 1;
           });
@@ -133,7 +139,8 @@ class _CountdownPageState extends State<CountdownPage>
                         Row(
                           children: [
                             Text(
-                              "Task: $title",
+                              // "Task: $title",
+                              "Progress",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 30,
@@ -146,7 +153,7 @@ class _CountdownPageState extends State<CountdownPage>
                           children: [
 
                             Text(
-                              "$currentSet/4",
+                              "$currentSet/$allSets",
                               style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
@@ -161,11 +168,7 @@ class _CountdownPageState extends State<CountdownPage>
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
                               ),),
-                            Text(isBreakmode?"BREAK!":"",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),)
+
                           ],
                         )
 
@@ -208,9 +211,19 @@ class _CountdownPageState extends State<CountdownPage>
             ),
           ),
           Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 60),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
               child: Column(
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(isBreakmode?"BREAK!":"",
+                        style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                        ),)
+                    ],
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -274,21 +287,26 @@ class _CountdownPageState extends State<CountdownPage>
                       ),
                       GestureDetector(
                         onTap: () {
-                          controller.reset();
-                          setState(() {
-                            isPlaying = false;
-                          });
+                          if (isCompleted){
+                            controller.reset();
+                            setState(() {
+                            isCompleted = false;
+                            currentSet = 1;
+                            isBreakmode=false;
+                            completeText="";
+                            controller.duration = setDuration;
+                            });
+                          } else {
+                            controller.reset();
+                            setState(() {
+                              isPlaying = false;
+                            });
+                          }
                         },
                         child: RoundButton(
-                          icon: Icons.skip_next,
+                          icon: isCompleted == true ? Icons.restart_alt : Icons.skip_next,
                         ),
                       ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-
                     ],
                   ),
                 ],
