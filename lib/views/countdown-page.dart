@@ -129,22 +129,33 @@ class _CountdownPageState extends State<CountdownPage>
 
                 ,
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Column(
                       children: [
                         Padding(padding: EdgeInsets.all(36.0)),
                         Row(
                           children: [
-                            Text("$currentSet/4",
+                            Text(
+                              "Task: $title",
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
-                              ),),
-                            Text("Task: $title",
+                              ),
+                            ),
+
+                          ],
+                        ),Row(
+                          children: [
+
+                            Text(
+                              "$currentSet/4",
                               style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
-                              ),),
+                              ),
+                            ),
                           ],
                         ),
                         Row(
