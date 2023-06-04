@@ -23,8 +23,8 @@ class _CountdownPageState extends State<CountdownPage>
   String title = "Do the laundry";
   String completeText = "";
 
-  Duration setDuration = Duration(seconds: 2);
-  Duration breakDuration = Duration(seconds: 1);
+  Duration setDuration = Duration(minutes: 2);
+  Duration breakDuration = Duration(seconds: 30);
 
   String get countText {
     Duration count = controller.duration! * controller.value;
