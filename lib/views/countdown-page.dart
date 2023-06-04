@@ -96,7 +96,7 @@ class _CountdownPageState extends State<CountdownPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffffefb4),
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           Expanded(
@@ -113,16 +113,12 @@ class _CountdownPageState extends State<CountdownPage>
                         scale: 10.0, // Adjust the scale factor as per your requirement
                         child: CircularProgressIndicator(
                           backgroundColor: Colors.grey.shade300,
-                          color: Color(0xfffddd87),
+                          color: Colors.purple,
                           value: progress,
-                          strokeWidth: 3,
+                          strokeWidth: 1,
                         ),
                       ),
-                      Image.asset(
-                        'assets/images/peach.png',  // Replace 'your_image.png' with your actual image file path
-                        width: 400,  // Adjust the width and height according to your image size requirements
-                        height: 400,
-                      ),
+
                     ],
                   ),
                 )
@@ -212,7 +208,7 @@ class _CountdownPageState extends State<CountdownPage>
             ),
           ),
           Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 60),
               child: Column(
                 children: [
                   Row(
@@ -253,11 +249,6 @@ class _CountdownPageState extends State<CountdownPage>
                           icon: Icons.plus_one,
                         ),
                       ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
                       GestureDetector(
                         onTap: () {
                           if (controller.isAnimating) {
@@ -292,6 +283,12 @@ class _CountdownPageState extends State<CountdownPage>
                           icon: Icons.skip_next,
                         ),
                       ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+
                     ],
                   ),
                 ],

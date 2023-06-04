@@ -12,7 +12,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Countdown app',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
+        iconTheme: IconThemeData(color: Colors.purpleAccent),
       ),
       home: CountdownPage(),
     );
