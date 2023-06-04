@@ -96,7 +96,7 @@ class _CountdownPageState extends State<CountdownPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfff5fbff),
+      backgroundColor: Color(0xffffefb4),
       body: Column(
         children: [
           Expanded(
@@ -108,8 +108,9 @@ class _CountdownPageState extends State<CountdownPage>
                   height: 300,
                   child: CircularProgressIndicator(
                     backgroundColor: Colors.grey.shade300,
+                    color: Color(0xfffddd87),
                     value: progress,
-                    strokeWidth: 6,
+                    strokeWidth: 21,
                   ),
                 ),
                 Row(
