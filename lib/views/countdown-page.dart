@@ -106,13 +106,28 @@ class _CountdownPageState extends State<CountdownPage>
                 SizedBox(
                   width: 300,
                   height: 300,
-                  child: CircularProgressIndicator(
-                    backgroundColor: Colors.grey.shade300,
-                    color: Color(0xfffddd87),
-                    value: progress,
-                    strokeWidth: 21,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Transform.scale(
+                        scale: 10.0, // Adjust the scale factor as per your requirement
+                        child: CircularProgressIndicator(
+                          backgroundColor: Colors.grey.shade300,
+                          color: Color(0xfffddd87),
+                          value: progress,
+                          strokeWidth: 3,
+                        ),
+                      ),
+                      Image.asset(
+                        'assets/images/peach.png',  // Replace 'your_image.png' with your actual image file path
+                        width: 400,  // Adjust the width and height according to your image size requirements
+                        height: 400,
+                      ),
+                    ],
                   ),
-                ),
+                )
+
+                ,
                 Row(
                   children: [
                     Column(
