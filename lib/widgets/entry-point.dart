@@ -8,7 +8,11 @@ import 'package:gibt_app/views/countdown-page.dart';
 import 'package:gibt_app/widgets/side-menu.dart';
 import 'package:rive/rive.dart';
 
+import '../constants/image_strings.dart';
+import '../constants/text_strings.dart';
 import '../models/menu-button.dart';
+import '../models/user.dart';
+import '../theme/colors.dart';
 import '../utils/rive-utils.dart';
 
 class EntryPoint extends StatefulWidget {
@@ -25,6 +29,7 @@ class _EntryPointState extends State<EntryPoint>
   late AnimationController _animationController;
   late Animation<double> animation;
   late Animation<double> scalAnimation;
+  late final User user;
 
   bool isSideMenuClosed = true;
 
@@ -45,6 +50,17 @@ class _EntryPointState extends State<EntryPoint>
       CurvedAnimation(
           parent: _animationController, curve: Curves.fastOutSlowIn),
     );
+
+    user = User(
+        balance: 1000,
+        profileName: tProfileName,
+        profileEmail: tProfileEmail,
+        profilePhoto: tProfileImage,
+        profileLevel: 3,
+        themeColor: const AppColors().primaryColor,
+        themeSecondaryColor: const AppColors().secondaryColor
+    );
+
     super.initState();
   }
 
@@ -57,7 +73,7 @@ class _EntryPointState extends State<EntryPoint>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF7553F6),
+      backgroundColor: user.themeColor,
       resizeToAvoidBottomInset: false,
       extendBody: true,
       body: Stack(
@@ -66,9 +82,9 @@ class _EntryPointState extends State<EntryPoint>
               width: 300,
               left: isSideMenuClosed ? -300 : 0,
               height: MediaQuery.of(context).size.height,
-              duration: Duration(milliseconds: 200),
+              duration: const Duration(milliseconds: 200),
               curve: Curves.fastOutSlowIn,
-              child: SideMenu()),
+              child: const SideMenu()),
           Transform(
             alignment: Alignment.center,
             transform: Matrix4.identity()
@@ -78,13 +94,13 @@ class _EntryPointState extends State<EntryPoint>
                 offset: Offset(animation.value * 265, 0),
                 child: Transform.scale(
                     scale: scalAnimation.value,
-                    child: ClipRRect(
+                    child: const ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(24)),
-                      child: const CountdownPage(),
+                      child: CountdownPage(),
                     ))),
           ),
           AnimatedPositioned(
-            duration: Duration(milliseconds: 200),
+            duration: const Duration(milliseconds: 200),
             curve: Curves.fastOutSlowIn,
             left: isSideMenuClosed ? 0 : 220,
             top: 16,

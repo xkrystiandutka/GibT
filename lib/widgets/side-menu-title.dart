@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gibt_app/models/rive-asset.dart';
 import 'package:rive/rive.dart';
 
+import '../models/user.dart';
+
 class SideMenuTitle extends StatelessWidget {
   const SideMenuTitle({
     super.key,
@@ -9,12 +11,14 @@ class SideMenuTitle extends StatelessWidget {
     required this.press,
     required this.riveonInit,
     required this.isActive,
+    required this.user,
   });
 
   final RiveAsset menu;
   final VoidCallback press;
   final ValueChanged<Artboard> riveonInit;
   final bool isActive;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +40,9 @@ class SideMenuTitle extends StatelessWidget {
               width: isActive ? 300 : 0,
               left: 0,
               child: Container(
-                decoration: const BoxDecoration(
-                    color: Color(0xFF4E23F3),
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                decoration: BoxDecoration(
+                    color: user.themeSecondaryColor,
+                    borderRadius: const BorderRadius.all(Radius.circular(10))),
               ),
             ),
             ListTile(

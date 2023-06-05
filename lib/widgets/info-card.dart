@@ -1,32 +1,40 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../constants/image_strings.dart';
+import '../models/user.dart';
+
 class InfoCard extends StatelessWidget {
   const InfoCard({
     super.key,
     required this.name,
-    required this.proffesion,
+    required this.level,
+    required this.user,
   });
 
-  final String name, proffesion;
+  final String name, level;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const CircleAvatar(
+      leading: CircleAvatar(
         backgroundColor: Colors.white24,
-        child: Icon(
-          CupertinoIcons.person,
-          color: Colors.white,
+        radius: 25, // Adjust the radius as needed
+        child: ClipOval(
+          child: Image(
+            image: AssetImage(user.profilePhoto),
+            fit: BoxFit.cover,
+          ),
         ),
       ),
       title: Text(
         name,
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
       ),
       subtitle: Text(
-        proffesion,
-        style: TextStyle(color: Colors.white),
+        level,
+        style: const TextStyle(color: Colors.white),
       ),
     );
   }
