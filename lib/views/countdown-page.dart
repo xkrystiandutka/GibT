@@ -57,7 +57,7 @@ class _CountdownPageState extends State<CountdownPage>
           });
         } else if (currentSet>allSets){
           setState(() {
-          currentSet=1;
+            currentSet=1;
           });
         }else {
           setState(() {
@@ -231,7 +231,7 @@ class _CountdownPageState extends State<CountdownPage>
                         onTap: () {
                           if (controller.isAnimating &&
                               (controller.duration! * controller.value)
-                                      .inMinutes >
+                                  .inMinutes >
                                   1) {
                             setState(() {
                               controller.duration =
@@ -290,11 +290,11 @@ class _CountdownPageState extends State<CountdownPage>
                           if (isCompleted){
                             controller.reset();
                             setState(() {
-                            isCompleted = false;
-                            currentSet = 1;
-                            isBreakmode=false;
-                            completeText="";
-                            controller.duration = setDuration;
+                              isCompleted = false;
+                              currentSet = 1;
+                              isBreakmode=false;
+                              completeText="";
+                              controller.duration = setDuration;
                             });
                           } else {
                             controller.reset();
