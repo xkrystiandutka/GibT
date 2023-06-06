@@ -30,8 +30,11 @@ class _CountdownPageState extends State<CountdownPage>
   String get countText {
     Duration count = controller.duration! * controller.value;
     return controller.isDismissed
-        ? '${controller.duration!.inHours}:${(controller.duration!.inMinutes % 60).toString().padLeft(2, '0')}:${(controller.duration!.inSeconds % 60).toString().padLeft(2, '0')}'
-        : '${count.inHours}:${(count.inMinutes % 60).toString().padLeft(2, '0')}:${(count.inSeconds % 60).toString().padLeft(2, '0')}';
+        ? '${controller.duration!.inHours}:${(controller.duration!.inMinutes % 60)
+        .toString().padLeft(2, '0')}:${(controller.duration!.inSeconds % 60)
+        .toString().padLeft(2, '0')}'
+        : '${count.inHours}:${(count.inMinutes % 60).toString().padLeft(2, '0')}:'
+        '${(count.inSeconds % 60).toString().padLeft(2, '0')}';
   }
 
   double progress = 1.0;
