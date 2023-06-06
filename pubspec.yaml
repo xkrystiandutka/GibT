@@ -56,7 +56,7 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
-    - assets/images/background.png
+    - assets/images/peach.png
     - assets/icons.riv
     - assets/menu-button.riv
     - assets/images/profile/profile-pic.png
